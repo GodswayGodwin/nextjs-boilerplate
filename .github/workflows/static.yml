@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GreenZoe Nutrition</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #ffffff;
+      color: #333;
+    }
+    header {
+      background-color: #047857;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    main {
+      padding: 20px;
+      max-width: 960px;
+      margin: auto;
+    }
+    section {
+      margin-bottom: 40px;
+    }
+    .products, .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.05);
+    }
+    .card h3 {
+      margin-top: 0;
+    }
+    button {
+      background-color: #047857;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    button:hover {
+      background-color: #065f46;
+    }
+    input[type="email"] {
+      padding: 10px;
+      width: 60%;
+      max-width: 300px;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    footer {
+      background-color: #047857;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>GreenZoe Nutrition</h1>
+    <p>Nourishing Lives with Nature’s Goodness</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>About Us</h2>
+      <p>
+        GreenZoe Nutrition is a proud member of the GreenZoe Group of Companies, dedicated to providing organic, sustainable, and nutrient-rich food products. Our mission is to promote wellness through nature-based nutrition while empowering local farmers and producers.
+      </p>
+    </section>
+
+    <section>
+      <h2>Our Products</h2>
+      <div class="products">
+        <div class="card">
+          <h3>Smoothie Blend</h3>
+          <p>Mixed berry organic smoothie.</p>
+          <p><strong>$10</strong></p>
+          <button onclick="addToCart('Smoothie Blend', 10)">Add to Cart</button>
+        </div>
+        <div class="card">
+          <h3>Protein Powder</h3>
+          <p>Plant-based protein supplement.</p>
+          <p><strong>$25</strong></p>
+          <button onclick="addToCart('Protein Powder', 25)">Add to Cart</button>
+        </div>
+        <div class="card">
+          <h3>Moringa Powder</h3>
+          <p>Nutrient-rich superfood powder.</p>
+          <p><strong>$15</strong></p>
+          <button onclick="addToCart('Moringa Powder', 15)">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Shopping Cart</h2>
+      <ul id="cart"></ul>
+      <button onclick="checkout()" style="display: none;" id="checkoutBtn">Proceed to Checkout</button>
+    </section>
+
+    <section>
+      <h2>Product Gallery</h2>
+      <div class="gallery">
+        <img src="https://via.placeholder.com/250x150?text=Smoothie" alt="Smoothie" />
+        <img src="https://via.placeholder.com/250x150?text=Protein" alt="Protein" />
+        <img src="https://via.placeholder.com/250x150?text=Superfood" alt="Superfood" />
+      </div>
+    </section>
+
+    <section>
+      <h2>Why Choose Us?</h2>
+      <ul>
+        <li>100% Natural Ingredients</li>
+        <li>Ethical and Sustainable Sourcing</li>
+        <li>Backed by Nutrition Science</li>
+        <li>Locally Produced with Global Standards</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Blog</h2>
+      <div class="card">
+        <h3>Top 5 Superfoods You Should Be Eating</h3>
+        <p>Discover the health benefits of moringa, spirulina, and more in this week's feature.</p>
+      </div>
+      <div class="card">
+        <h3>Meal Planning for a Healthy Lifestyle</h3>
+        <p>Tips and tricks on how to organize your weekly meals for better nutrition and balance.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Newsletter Signup</h2>
+      <input type="email" id="emailInput" placeholder="Your email address">
+      <button onclick="subscribe()">Subscribe</button>
+    </section>
+
+    <section>
+      <h2>Secure Payment Gateway</h2>
+      <p>We accept Visa, Mastercard, Mobile Money, and all major payment platforms through our secure gateway partner. Checkout with peace of mind!</p>
+    </section>
+
+    <section>
+      <h2>Contact Us</h2>
+      <p>Email: <strong>greenzoenutrition@gmail.com</strong></p>
+      <p>Phone: +233 544 488 152</p>
+      <p>Address: GreenZoe HQ, Accra, Ghana</p>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 GreenZoe Nutrition. All rights reserved.
+  </footer>
+
+  <script>
+    const cartList = document.getElementById('cart');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    const cartItems = [];
+
+    function addToCart(item, price) {
+      cartItems.push(`${item} - $${price}`);
+      updateCart();
+    }
+
+    function updateCart() {
+      cartList.innerHTML = '';
+      cartItems.forEach(i => {
+        const li = document.createElement('li');
+        li.textContent = i;
+        cartList.appendChild(li);
+      });
+      checkoutBtn.style.display = cartItems.length > 0 ? 'inline-block' : 'none';
+    }
+
+    function checkout() {
+      alert('Redirecting to secure payment...');
+    }
+
+    function subscribe() {
+      const email = document.getElementById('emailInput').value;
+      if (email) {
+        alert(`Thank you for subscribing with ${email}`);
+        document.getElementById('emailInput').value = '';
+      } else {
+        alert('Please enter a valid email');
+      }
+    }
+  </script>
+</body>
+</html>
